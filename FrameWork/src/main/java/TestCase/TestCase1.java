@@ -7,13 +7,19 @@ import Utilities.DriverHandler;
 import Utilities.ExecuteAction;
 import Utilities.LocatorType;
 import Utilities.Locators;
+import Utilities.Report;
 import Utilities.print;
+import freemarker.ext.jsp._FreeMarkerPageContext1;
 
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.interactions.Actions;
 
-import com.relevantcodes.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+
 
 
 
@@ -25,28 +31,40 @@ public class TestCase1 {
 	}
 	public static void Execute(Browser browser,String website, String searchword) throws InterruptedException 
 	{
+
+		//ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter("report.html");
+		//ExtentReports extent = new ExtentReports();
+		//extent.attachReporter(htmlReporter);
 		
 		
+			ExtentReports extent = Report.createReport("TestCase1");
+			ExtentTest test1 = extent.createTest("Report of TestCase1", "First extent Report");
+			ExtentTest test2 = extent.createTest("Report of TestCase1", "First extent Report");
+			test1.log(Status.INFO, "Starting TestCase1");
+			//al final debe ir un extent.flush();
+			
+			
 			print.TestCaseStart();
 			DriverHandler.Start(browser);
+			test1.pass("Open Browser");
 			
 			
-			ExecuteAction.Action(Action.navigate, null, website);
+			ExecuteAction.Action(Action.navigate, null, website,test1);
 		
 		
 			Locators Woman = new Locators(LocatorType.xpath , "//a[text()='Women']");
-			ExecuteAction.Action(Action.click, Woman.element, "");
+			ExecuteAction.Action(Action.click, Woman.element, "",test1);
 			
 			
-			DriverHandler.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);	
+			//DriverHandler.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);	
 			Locators Dress = new Locators(LocatorType.xpath ,"//*[@id=\"categories_block_left\"]/div/ul/li[2]/a");
-			ExecuteAction.Action(Action.click, Dress.element, "");
+			ExecuteAction.Action(Action.click, Dress.element, "",test1);
 			
 			Locators EDress = new Locators(LocatorType.xpath , "//*[@id=\"categories_block_left\"]/div/ul/li[2]/a");
-			ExecuteAction.Action(Action.click, EDress.element, "");
+			ExecuteAction.Action(Action.click, EDress.element, "",test1);
 			
-			Locators More = new Locators(LocatorType.xpath , "//span[text()='More']");
-			ExecuteAction.Action(Action.click, More.element, "");
+			Locators More = new Locators(LocatorType.xpath , "//span[text()='More']"); 
+			ExecuteAction.Action(Action.click, More.element, "",test1);
 			
 			
 			Locators Price= new Locators(LocatorType.xpath,"//*[@id=\"our_price_display\"]");
@@ -59,98 +77,39 @@ public class TestCase1 {
 	        
 	        if(cost2<60.00) {
 	        	Locators AdCart = new Locators(LocatorType.xpath , "//span[text()='Add to cart']");
-				ExecuteAction.Action(Action.click, AdCart.element, "");
+				ExecuteAction.Action(Action.click, AdCart.element, "",test1);
 				
-				Locators COut = new Locators(LocatorType.xpath , "//*[@id=\"layer_cart\"]/div[1]/div[2]/div[4]/a/span");
-				ExecuteAction.Action(Action.click, COut.element, "");
+		
+				Locators COut = new Locators(LocatorType.xpath , "//*[@id=\"layer_cart\"]/div[1]/div[2]/div[4]/a/span/i");
+				ExecuteAction.Action(Action.click, COut.element, "",test2);
 				
-				
-				Locators order = new Locators(LocatorType.xpath , "//*[@id=\"center_column\"]/p[2]/a[1]/span");
-				ExecuteAction.Action(Action.click, order.element, "");
-				
-				
-				Locators email = new Locators(LocatorType.xpath , "//*[@id=\"email_create\"]");
-				ExecuteAction.Action(Action.type , email.element, "robertov02@gmail.com");
-				
-				Locators submit = new Locators(LocatorType.xpath , "//*[@id=\"SubmitCreate\"]/span");
-				ExecuteAction.Action(Action.click, submit.element, "");
-				
-				Locators gender = new Locators(LocatorType.xpath , "//*[@id=\"id_gender1\"]");
-				ExecuteAction.Action(Action.click, gender.element, "");
-				
-				Locators fname = new Locators(LocatorType.xpath , "//*[@id=\"customer_firstname\"]");
-				ExecuteAction.Action(Action.type , fname.element, "Roberto");
-				
-				Locators lname = new Locators(LocatorType.xpath , "//*[@id=\"customer_lastname\"]");
-				ExecuteAction.Action(Action.type , lname.element, "Valdivia");
-				
-				Locators pwd = new Locators(LocatorType.xpath , "//*[@id=\"passwd\"]");
-				ExecuteAction.Action(Action.type , pwd.element, "Valdivia");
-				
-				Locators dayb = new Locators(LocatorType.xpath , "//*[@id=\"days\"]/option[6]");
-				ExecuteAction.Action(Action.click, dayb.element, "");
-				
-				
-				Locators monthb = new Locators(LocatorType.xpath , "//*[@id=\"months\"]/option[3]");
-				ExecuteAction.Action(Action.click, monthb.element, "");
-				
-				Locators yearb = new Locators(LocatorType.xpath , "//*[@id=\"years\"]/option[26]");
-				ExecuteAction.Action(Action.click, yearb.element, "");
-				
-				Locators fname2 = new Locators(LocatorType.xpath , "//*[@id=\"firstname\"]");
-				ExecuteAction.Action(Action.type , fname2.element, "Valdivia");
-				
-				Locators lname2 = new Locators(LocatorType.xpath , "//*[@id=\"customer_lastname\"]");
-				ExecuteAction.Action(Action.type , lname2.element, "Valdivia");
-				
-				
-				Locators comp = new Locators(LocatorType.xpath , "//*[@id=\"company\"]");
-				ExecuteAction.Action(Action.type , comp.element, "Hexaware");
-				
-				Locators adress = new Locators(LocatorType.xpath , "//*[@id=\"address1\"]");
-				ExecuteAction.Action(Action.type , adress.element, "Mar Carpio, 210, col. infonavit Guanajuato");
-				
-				Locators city = new Locators(LocatorType.xpath , "//*[@id=\"city\"]");
-				ExecuteAction.Action(Action.type , city.element, "Leon");
-				
-				
-				Locators state = new Locators(LocatorType.xpath , "//*[@id=\"id_state\"]/option[6]");
-				ExecuteAction.Action(Action.click, state.element, "");
-				
-				
-				Locators cp = new Locators(LocatorType.xpath , "//*[@id=\"postcode\"]");
-				ExecuteAction.Action(Action.type , cp.element, "37309");
-				
-				
-				Locators comm = new Locators(LocatorType.xpath , "//*[@id=\"other\"]");
-				ExecuteAction.Action(Action.type , comm.element, "Hi!");
-				
-				Locators cell = new Locators(LocatorType.xpath , "//*[@id=\"phone_mobile\"]");
-				ExecuteAction.Action(Action.type , cell.element, "5555555555");
-				
-				Locators cell2 = new Locators(LocatorType.xpath , "//*[@id=\"authentication\"]");
-				ExecuteAction.Action(Action.type , cell2.element, "5555555555");
-				
-				
-				Locators alias = new Locators(LocatorType.xpath , "//*[@id=\"alias\"]");
-				ExecuteAction.Action(Action.type , alias.element, "Home");
-				
-				Locators reg = new Locators(LocatorType.xpath , "//*[@id=\"submitAccount\"]/span");
-				ExecuteAction.Action(Action.click, reg.element, "");
 				
 	          } else {
-	        	  ExecuteAction.Action(Action.quit, null, "");
+	        	  ExecuteAction.Action(Action.quit, null, "",test1);
 	        	  System.out.println("The cost is over 60.00");
 	          }
 			
 		
 			
-			Thread.sleep(1000000);
-			DriverHandler.driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
-			ExecuteAction.Action(Action.quit, null, "");
+			Thread.sleep(10);
+			//DriverHandler.driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+			ExecuteAction.Action(Action.quit, null, "",test1);
 			
 			print.TestCaseEnd();
 			
+			
+			
+			
+			
+			
+			test1.pass("Open Browser1");
+			test1.pass("Open Browser2");
+			test1.pass("Open Browser3");
+			test1.pass("Open Browser4");
+			test1.fail("Open Browser5");
+			test1.fail("Open Browser6");
+			test1.info("End TestCase1");
+			extent.flush();
 			
 
 
